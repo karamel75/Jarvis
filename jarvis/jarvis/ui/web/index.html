@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JARVIS</title>
+<link rel="stylesheet" href="./style.css">
+<script type="importmap">
+{
+  "imports": {
+    "three": "./vendor/three/build/three.module.min.js",
+    "three/addons/": "./vendor/three/examples/jsm/"
+  }
+}
+</script>
+</head>
+<body>
+  <canvas id="globe"></canvas>
+  <div id="vignette"></div>
+  <div id="cards"></div>
+  <form id="typer" hidden autocomplete="off">
+    <input id="typer-input" placeholder="Écrire à Jarvis…" spellcheck="false">
+  </form>
+  <div id="demo-help" hidden>
+    1 veille · 2 écoute · 3 réflexion · 4 parole · H apparaître/disparaître ·
+    W météo · M marchés · E mails · A agenda · S chiffre · I info · / écrire
+  </div>
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

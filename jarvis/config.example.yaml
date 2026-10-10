@@ -1,0 +1,103 @@
+# ─────────────────────────────────────────────────────────────
+#  JARVIS — configuration
+#  Copiez ce fichier en config.yaml (fait par `jarvis setup`).
+#  AUCUNE clé API ici : elles vont dans le Gestionnaire
+#  d'identification Windows via `jarvis setup`.
+# ─────────────────────────────────────────────────────────────
+
+user:
+  title: "Monsieur"            # comment Jarvis s'adresse à vous
+  name: ""                     # prénom (facultatif)
+  default_city: "Paris"        # repli si la géolocalisation échoue
+  timezone: "Europe/Paris"
+  locate: true                 # tente Windows Location puis IP
+
+brain:
+  model: "claude-sonnet-5"     # rapide et économique ; "claude-opus-5" = plus profond
+  effort: "low"                # low | medium | high — low = réponses vocales rapides
+  max_tokens: 4096
+  history_turns: 24            # messages gardés dans la conversation
+  reset_after_minutes: 30      # oubli du fil après une longue pause (la mémoire Obsidian reste)
+  web_search: true             # outil de recherche web côté Anthropic (actus, brief)
+
+voice:
+  provider: "elevenlabs"       # elevenlabs | edge (gratuit, voix fr-FR-HenriNeural)
+  voice_id: ""                 # ID de la voix ElevenLabs (onglet Voices → ID)
+  model_id: "eleven_flash_v2_5"  # rapide ; "eleven_multilingual_v2" = plus riche, plus lent
+  stability: 0.45
+  similarity_boost: 0.8
+  style: 0.15
+  speed: 1.0
+  edge_voice: "fr-FR-HenriNeural"  # voix de secours si ElevenLabs tombe
+
+audio:
+  input_device: null           # null = défaut Windows ; sinon nom ou index (voir `jarvis devices`)
+  output_device: null
+  wake_threshold: 0.5          # sensibilité « Hey Jarvis » (0.3 sensible … 0.7 strict)
+  barge_in: "wake_word"        # wake_word = dire « Hey Jarvis » le coupe (sûr avec enceintes)
+                               # voice     = n'importe quelle parole le coupe (casque conseillé)
+  follow_up_seconds: 7         # écoute sans mot-clé après chaque réponse
+  end_silence_ms: 800          # silence qui marque la fin de votre phrase
+  max_utterance_s: 25
+  chime: true                  # petit son holographique au réveil
+
+stt:
+  model: "small"               # tiny | base | small | medium (CPU : small = bon compromis)
+  compute_type: "int8"
+  beam_size: 1
+
+ui:
+  screen: -1                   # -1 = écran externe s'il existe, sinon principal ; ou index 0,1…
+  hotkey: "<ctrl>+<alt>+j"     # réveil au clavier
+  card_seconds: 14             # durée d'affichage des cartes holographiques
+  port: 8765
+
+obsidian:
+  vault: ""                    # ex. C:\Users\Vous\Documents\Obsidian\MonCoffre
+  folder: "Jarvis"             # seul dossier où Jarvis écrit
+
+files:
+  roots: ["~"]                 # où chercher les fichiers
+  everything_cli: "C:\\Program Files\\Everything\\es.exe"   # recherche instantanée si installé
+  forbidden:                   # jamais lus ni ouverts
+    - "C:\\Windows"
+    - "C:\\Program Files\\WindowsApps"
+    - "~\\AppData"
+    - "~\\.ssh"
+    - "~\\.aws"
+  forbidden_names: [".env", "*.kdbx", "*.pem", "*.key", "id_rsa*", "*.1pux", "*password*", "*mot de passe*", "*mots de passe*"]
+
+outlook:
+  enabled: false
+  client_id: ""                # ID d'application Entra (voir docs/SETUP.md §4)
+
+google:
+  enabled: false
+  credentials_file: "credentials.json"   # client OAuth « Application de bureau » (docs/SETUP.md §5)
+  calendar_id: "primary"
+
+home:
+  hue:
+    enabled: false
+    bridge_ip: ""              # vide = découverte automatique
+  kasa:
+    enabled: false             # prises/ampoules TP-Link Kasa & Tapo (identifiants Tapo via `jarvis setup`)
+
+markets:
+  watchlist:
+    "CAC 40": "^FCHI"
+    "S&P 500": "^GSPC"
+    "Nasdaq": "^IXIC"
+    "Euro Stoxx 50": "^STOXX50E"
+    "Bitcoin": "BTC-USD"
+    "Euro / Dollar": "EURUSD=X"
+    "Or": "GC=F"
+    "Pétrole Brent": "BZ=F"
+
+brief:
+  # ordre des sujets quand vous dites « Jarvis, le brief »
+  topics:
+    - "intelligence artificielle"
+    - "marchés mondiaux"
+    - "actualité générale"
+    - "actualité finance"
